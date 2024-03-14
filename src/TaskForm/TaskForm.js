@@ -3,26 +3,26 @@ import { Input } from "./Input";
 import { Select } from "./Select";
 import { uid } from "uid";
 
-export const NoteForm = ({submitNote}) => {
+export const TaskForm = ({submitTask}) => {
 
-  const [note, setNote] = useState({});
+  const [task, setTask] = useState({});
   const [resetCounter, setResetCounter] = useState(0)
 
-  useEffect(() => reset(), [])
+  useEffect(() => reset(), []) //for everytime when the page is refreshed
 
   const onChangeHandler = (e) => {
     switch (e.target.name) {
       case "title":
-        setNote({ ...note, title: e.target.value })
+        setTask({ ...task, title: e.target.value })
         break
       case "desc":
-        setNote({ ...note, desc: e.target.value })
+        setTask({ ...task, desc: e.target.value })
         break
       case "priority":
-        setNote({ ...note, priority: e.target.value })
+        setTask({ ...task, priority: e.target.value })
         break
       case "status":
-        setNote({ ...note, status: e.target.value })
+        setTask({ ...task, status: e.target.value })
         break
       default:
         break
@@ -31,7 +31,7 @@ export const NoteForm = ({submitNote}) => {
   }
 
   const reset = () => {
-    setNote({
+    setTask({
         id: uid(),
         title: "",
         desc: "",
@@ -39,6 +39,7 @@ export const NoteForm = ({submitNote}) => {
         status: "Pending",
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
+        dueDate: new Date().toISOString(),
     }   
     )
     setResetCounter(resetCounter + 1)  
@@ -46,9 +47,9 @@ export const NoteForm = ({submitNote}) => {
 
   const submit = (e) => {
     e.preventDefault()
-    submitNote(note)
+    submitTask(task)
     reset()
-    console.log(note)
+    console.log(task)
     // setShowModal(false)
   }
 
@@ -66,23 +67,33 @@ export const NoteForm = ({submitNote}) => {
             label={"Title"}
             fieldName="title"
             onChangeHandler={onChangeHandler}
+            resetCounter={resetCounter}
           />
           <Input
             label={"Details"}
             fieldName="desc"
             onChangeHandler={onChangeHandler}
+            resetCounter={resetCounter}
           />
           <Select
             label="Priority"
             fieldName="priority"
             options={[1, 2, 3, 4, 5]}
             onChangeHandler={onChangeHandler}
+            resetCounter={resetCounter}
           />
           <Select
             label="Status"
             fieldName="status"
             options={["Pending", "InProgress", "Done", "Failed"]}
             onChangeHandler={onChangeHandler}
+            resetCounter={resetCounter}
+          />
+          <Input
+            label={"DueDate"}
+            fieldName="dueDate"
+            onChangeHandler={onChangeHandler}
+            resetCounter={resetCounter}
           />
 
           <button onClick={submit}>Submit</button>

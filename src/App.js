@@ -1,10 +1,10 @@
 
 import './App.css';
 import { uid } from "uid";
-import { NoteTable } from "./NoteTable";
-import { NoteForm } from "./NoteForm/NoteForm";
+import { TaskTable } from "./TaskTable";
+import { TaskForm } from "./TaskForm/TaskForm";
 
-const mockNotes = [
+const mockTasks = [
   {
     id: uid(),
     title: "Note 1",
@@ -13,6 +13,7 @@ const mockNotes = [
     status: "Pending",
     createdAt: "2024-03-12T05:19:29.533Z",
     updatedAt: "2024-03-12T05:19:29.533Z",
+    dueDate: "2024-03-17T05:19:29.533Z",
   },
   {
     id: uid(),
@@ -22,6 +23,7 @@ const mockNotes = [
     status: "Pending",
     createdAt: "2024-03-12T05:19:29.533Z",
     updatedAt: "2024-03-12T05:19:29.533Z",
+    dueDate: "2024-03-17T05:19:29.533Z",
   },
   {
     id: uid(),
@@ -31,6 +33,7 @@ const mockNotes = [
     status: "Pending",
     createdAt: "2024-03-12T05:19:29.533Z",
     updatedAt: "2024-03-12T05:19:29.533Z",
+    dueDate: "2024-03-17T05:19:29.533Z",
   },
 ]
 
@@ -38,15 +41,15 @@ const mockNotes = [
 
 function App() {
 
-  const addNote = (newNote) => {
+  const addTask = (newTask) => {
     // setNotes([...notes, newNote])
-    console.log(newNote)
+    console.log(newTask)
   }
 
   return (
     <div>
-      <NoteTable notes = {mockNotes}/>
-      <NoteForm submitNote={addNote}/>
+      <TaskTable tasks = {mockTasks}/>
+      <TaskForm submitTask={addTask}/>
     </div>
     
   );
