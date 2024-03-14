@@ -1,6 +1,8 @@
+
 import './App.css';
 import { uid } from "uid";
 import { NoteTable } from "./NoteTable";
+import { NoteForm } from "./NoteForm/NoteForm";
 
 const mockNotes = [
   {
@@ -32,10 +34,19 @@ const mockNotes = [
   },
 ]
 
+
+
 function App() {
+
+  const addNote = (newNote) => {
+    // setNotes([...notes, newNote])
+    console.log(newNote)
+  }
+
   return (
     <div>
       <NoteTable notes = {mockNotes}/>
+      <NoteForm submitNote={addNote}/>
     </div>
     
   );
