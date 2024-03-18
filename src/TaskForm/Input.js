@@ -1,17 +1,22 @@
 import React, {useEffect, useRef} from 'react'
+import Form from 'react-bootstrap/Form';
 
-export const Input = ({label, fieldName, type = "text", onChangeHandler, resetCounter}) => {
+export const Input = ({label, fieldName, type = "text", onChangeHandler, resetCounter, defaultValue}) => {
   const input = useRef(null)
   useEffect(() => {
     if (input && input.current) {
       console.log(input.current.value)
-      input.current.value = ""
+      input.current.value = defaultValue ? defaultValue : ""
     }
   }, [resetCounter])
   return (
-    <div>
-        <label htmlFor={fieldName}>{label}:</label>
-        <input ref={input} type={type} id={fieldName} name={fieldName} onChange={onChangeHandler}/>
-    </div>
+    
+    <Form.Group className="mb-3" controlId={fieldName}>
+      <Form.Label>{label}</Form.Label>
+      <Form.Control type={type} name={fieldName} onChange={onChangeHandler} defaultValue={defaultValue}/>
+    </Form.Group>
+    
+
+    
   )
 }

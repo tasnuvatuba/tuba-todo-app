@@ -4,6 +4,8 @@ import { Input } from "./Input";
 import { Select } from "./Select";
 import { uid } from "uid";
 import { FormModal } from "./FormModal";
+import Form from 'react-bootstrap/Form';
+
 
 export const TaskForm = ({submitTask, defaultTask, label}) => {
 
@@ -73,18 +75,20 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
     <div>
       <Button variant="outline-secondary" onClick={() => setShowModal(true)}>{label}</Button>{' '}
       <FormModal title={label} showModal={showModal} onClose={() => setShowModal(false)} submit={submit} reset={reset}>
-      <form>
+      <Form>
           <Input
             label={"Title"}
             fieldName="title"
             onChangeHandler={onChangeHandler}
             resetCounter={resetCounter}
+            defaultValue={task.title}
           />
           <Input
             label={"Details"}
             fieldName="desc"
             onChangeHandler={onChangeHandler}
             resetCounter={resetCounter}
+            defaultValue={task.desc}
           />
           <Select
             label="Priority"
@@ -92,6 +96,7 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
             options={[1, 2, 3, 4, 5]}
             onChangeHandler={onChangeHandler}
             resetCounter={resetCounter}
+            defaultValue={task.priority}
           />
           <Select
             label="Status"
@@ -99,18 +104,17 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
             options={["Pending", "InProgress", "Done", "Failed"]}
             onChangeHandler={onChangeHandler}
             resetCounter={resetCounter}
+            defaultValue={task.status}
           />
           <Input
             label={"DueDate"}
             fieldName="dueDate"
             onChangeHandler={onChangeHandler}
             resetCounter={resetCounter}
+            defaultValue={task.dueDate}
           />
 
-          {/* <button onClick={submit}>Submit</button>
-          <button onClick={clear}>Clear</button> */}
-          
-        </form>  
+        </Form>  
       </FormModal>
                  
     </div>

@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { TaskTable } from "./TaskTable";
 import { TaskForm } from "./TaskForm/TaskForm";
 import { useState, useEffect } from "react";
+import { TaskFilter } from "./TaskFilter";
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -43,12 +44,28 @@ function App() {
     );
   };
 
+  const filterTasks = (status) => {
+    console.log(status);
+    if (status === 'none') {
+      setTasks(tasks);
+      console.log(status);
+    } 
+    else {
+      setTasks(tasks.filter((task) => task.status === status));
+    }
+  };
+
 
   return (
     <Container >
       <Row className='p-md-5'>
         <Col className="text-center">
           <h1>To-do List</h1>
+        </Col>
+      </Row>
+      <Row className='p-md-5'>
+        <Col className="text-center">
+          <TaskFilter filterTasks={filterTasks} />
         </Col>
       </Row>
       <Row>

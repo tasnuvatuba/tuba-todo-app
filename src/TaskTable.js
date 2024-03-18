@@ -1,5 +1,6 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table';
+import { TaskForm } from "./TaskForm/TaskForm";
 
 
 
@@ -38,7 +39,7 @@ export const TaskTable = (props) => {
               <td>{task.updatedAt}</td>
               <td>{task.dueDate}</td>
               <td>
-                <button onClick={() => updateTask(task.id)}>Update</button>
+                <TaskForm submitTask={updateTask} defaultTask={task} label={"Update"} />
                 <button onClick={() => deleteTask(task.id)}>Delete</button>
                 {/* <button onClick={submitDelete(task)}>Delete</button> */}
 
