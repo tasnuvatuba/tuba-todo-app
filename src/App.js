@@ -1,9 +1,12 @@
-
 import './App.css';
-import { uid } from "uid";
+import "bootstrap/dist/css/bootstrap.css";
 import { TaskTable } from "./TaskTable";
 import { TaskForm } from "./TaskForm/TaskForm";
 import { useState, useEffect } from "react";
+
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 
 function App() {
@@ -19,12 +22,18 @@ function App() {
 
   const addTask = (newTask) => {
     setTasks([...tasks, newTask])
-    console.log(newTask)
   }
 
-  const updateTask = (id) => {
-    console.log(id)
-  }
+  const updateTask = (updatedTask) => {
+    const newTasks = tasks.map((x) => {
+      if (x.id === updatedTask.id) {
+        x = updatedTask;
+      }
+      return x;
+    });
+
+    setTasks(newTasks);
+  };
 
   const deleteTask = (id) => {
     setTasks(
@@ -36,12 +45,26 @@ function App() {
 
 
   return (
-    <div>
-      <TaskTable tasks = {tasks} deleteTask = {deleteTask} updateTask = {updateTask}/>
-      <TaskForm submitTask={addTask}/>
-    </div>
-    
+    <Container >
+      <Row className='p-md-5'>
+        <Col className="text-center">
+          <h1>To-do List</h1>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <TaskTable tasks={tasks} deleteTask={deleteTask} updateTask={updateTask} />
+        </Col>
+      </Row>
+      <Row className='p-md-5'>
+        <Col className='text-center'>
+          <TaskForm submitTask={addTask} label="Add Task" />
+        </Col>
+      </Row>
+    </Container>
   );
+  
+  
 }
 
 export default App;

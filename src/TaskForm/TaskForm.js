@@ -1,12 +1,16 @@
 import React, {useState, useEffect} from 'react'
+import Button from 'react-bootstrap/Button';
 import { Input } from "./Input";
 import { Select } from "./Select";
 import { uid } from "uid";
+import { FormModal } from "./FormModal";
 
-export const TaskForm = ({submitTask}) => {
+export const TaskForm = ({submitTask, defaultTask, label}) => {
 
   const [task, setTask] = useState({});
   const [resetCounter, setResetCounter] = useState(0)
+  const [showModal, setShowModal] = useState(false);
+
 
   useEffect(() => reset(), []) //for everytime when the page is refreshed
 
@@ -30,11 +34,13 @@ export const TaskForm = ({submitTask}) => {
       default:
         break
     }
-    //console.log(`name: ${e.target.name} | value: ${e.target.value}`)
+    
   }
 
   const reset = () => {
-    setTask({
+    setTask(
+      defaultTask? defaultTask :
+      {
         id: uid(),
         title: "",
         desc: "",
@@ -43,7 +49,7 @@ export const TaskForm = ({submitTask}) => {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         dueDate: new Date().toISOString(),
-    }   
+     }   
     )
     setResetCounter(resetCounter + 1)  
   }
@@ -52,20 +58,22 @@ export const TaskForm = ({submitTask}) => {
     e.preventDefault()
     submitTask(task)
     reset()
-    // setShowModal(false)
+    setShowModal(false)
   }
 
 
   const clear = (e) => {
     e.preventDefault()
     reset()
-    // setShowModal(false)
+    setShowModal(false)
   }
 
 
   return (
     <div>
-        <form>
+      <Button variant="outline-secondary" onClick={() => setShowModal(true)}>{label}</Button>{' '}
+      <FormModal title={label} showModal={showModal} onClose={() => setShowModal(false)} submit={submit} reset={reset}>
+      <form>
           <Input
             label={"Title"}
             fieldName="title"
@@ -99,10 +107,12 @@ export const TaskForm = ({submitTask}) => {
             resetCounter={resetCounter}
           />
 
-          <button onClick={submit}>Submit</button>
-          <button onClick={clear}>Clear</button>
+          {/* <button onClick={submit}>Submit</button>
+          <button onClick={clear}>Clear</button> */}
           
-        </form>        
+        </form>  
+      </FormModal>
+                 
     </div>
   )
 }

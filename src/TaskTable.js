@@ -1,4 +1,6 @@
 import React from 'react'
+import Table from 'react-bootstrap/Table';
+
 
 
 export const TaskTable = (props) => {
@@ -11,7 +13,7 @@ export const TaskTable = (props) => {
   }
   
   return (
-    <table>
+    <Table responsive bordered hover>
       <thead>
         <tr>
           <th>Title</th>
@@ -45,6 +47,6 @@ export const TaskTable = (props) => {
           )
         })}
       </tbody>
-    </table>
+    </Table>
   )
 }
