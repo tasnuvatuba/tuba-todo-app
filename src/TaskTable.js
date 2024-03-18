@@ -1,7 +1,15 @@
 import React from 'react'
 
+
 export const TaskTable = (props) => {
   const tasks = props.tasks
+  const deleteTask = props.deleteTask
+  const updateTask = props.updateTask
+
+  const submitDelete = (task) =>{
+    deleteTask(task.id)
+  }
+  
   return (
     <table>
       <thead>
@@ -28,8 +36,10 @@ export const TaskTable = (props) => {
               <td>{task.updatedAt}</td>
               <td>{task.dueDate}</td>
               <td>
-                <button>Update</button>
-                <button>Delete</button>
+                <button onClick={() => updateTask(task.id)}>Update</button>
+                <button onClick={() => deleteTask(task.id)}>Delete</button>
+                {/* <button onClick={submitDelete(task)}>Delete</button> */}
+
               </td>
             </tr>
           )

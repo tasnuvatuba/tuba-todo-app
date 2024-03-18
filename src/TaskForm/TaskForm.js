@@ -24,10 +24,13 @@ export const TaskForm = ({submitTask}) => {
       case "status":
         setTask({ ...task, status: e.target.value })
         break
+      case "dueDate":
+        setTask({ ...task, dueDate: e.target.value })
+        break
       default:
         break
     }
-    console.log(`name: ${e.target.name} | value: ${e.target.value}`)
+    //console.log(`name: ${e.target.name} | value: ${e.target.value}`)
   }
 
   const reset = () => {
@@ -49,9 +52,9 @@ export const TaskForm = ({submitTask}) => {
     e.preventDefault()
     submitTask(task)
     reset()
-    console.log(task)
     // setShowModal(false)
   }
+
 
   const clear = (e) => {
     e.preventDefault()

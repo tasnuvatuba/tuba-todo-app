@@ -3,52 +3,41 @@ import './App.css';
 import { uid } from "uid";
 import { TaskTable } from "./TaskTable";
 import { TaskForm } from "./TaskForm/TaskForm";
-
-const mockTasks = [
-  {
-    id: uid(),
-    title: "Note 1",
-    desc: "Note 1 description",
-    priority: 5,
-    status: "Pending",
-    createdAt: "2024-03-12T05:19:29.533Z",
-    updatedAt: "2024-03-12T05:19:29.533Z",
-    dueDate: "2024-03-17T05:19:29.533Z",
-  },
-  {
-    id: uid(),
-    title: "Note 2",
-    desc: "Note 2 description",
-    priority: 5,
-    status: "Pending",
-    createdAt: "2024-03-12T05:19:29.533Z",
-    updatedAt: "2024-03-12T05:19:29.533Z",
-    dueDate: "2024-03-17T05:19:29.533Z",
-  },
-  {
-    id: uid(),
-    title: "Note 3",
-    desc: "Note 3 description",
-    priority: 3,
-    status: "Pending",
-    createdAt: "2024-03-12T05:19:29.533Z",
-    updatedAt: "2024-03-12T05:19:29.533Z",
-    dueDate: "2024-03-17T05:19:29.533Z",
-  },
-]
-
+import { useState, useEffect } from "react";
 
 
 function App() {
+  // Load tasks from local storage or use the mockTasks if there are none
+  const initialTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  const [tasks, setTasks] = useState(initialTasks);
+
+  // Update local storage whenever tasks change
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
+
 
   const addTask = (newTask) => {
-    // setNotes([...notes, newNote])
+    setTasks([...tasks, newTask])
     console.log(newTask)
   }
 
+  const updateTask = (id) => {
+    console.log(id)
+  }
+
+  const deleteTask = (id) => {
+    setTasks(
+      tasks.filter((task) => {
+        return task.id !== id;
+      })
+    );
+  };
+
+
   return (
     <div>
-      <TaskTable tasks = {mockTasks}/>
+      <TaskTable tasks = {tasks} deleteTask = {deleteTask} updateTask = {updateTask}/>
       <TaskForm submitTask={addTask}/>
     </div>
     
