@@ -10,9 +10,6 @@ export const FormModal = ({ title, onClose, showModal, submit, reset, children }
       </Modal.Header>
       <Modal.Body>{children}</Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={reset}>
-          Clear
-        </Button>
         <Button variant="secondary" onClick={submit}>
           Save
         </Button>

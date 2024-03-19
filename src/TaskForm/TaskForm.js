@@ -40,6 +40,8 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
   }
 
   const reset = () => {
+    console.log("inside clear")
+    console.log(defaultTask)
     setTask(
       defaultTask? defaultTask :
       {
@@ -67,14 +69,14 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
   const clear = (e) => {
     e.preventDefault()
     reset()
-    setShowModal(false)
+    //setShowModal(false)
   }
 
 
   return (
     <div>
       <Button variant="outline-secondary" onClick={() => setShowModal(true)}>{label}</Button>{' '}
-      <FormModal title={label} showModal={showModal} onClose={() => setShowModal(false)} submit={submit} reset={reset}>
+      <FormModal title={label} showModal={showModal} onClose={() => setShowModal(false)} submit={submit} reset={clear}>
       <Form>
           <Input
             label={"Title"}

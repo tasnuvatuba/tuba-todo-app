@@ -14,6 +14,7 @@ function App() {
   // Load tasks from local storage or use the mockTasks if there are none
   const initialTasks = JSON.parse(localStorage.getItem('tasks')) || [];
   const [tasks, setTasks] = useState(initialTasks);
+  
 
   // Update local storage whenever tasks change
   useEffect(() => {
@@ -45,12 +46,12 @@ function App() {
   };
 
   const filterTasks = (status) => {
-    console.log(status);
+    console.log('Filtering tasks with status:', status);
     if (status === 'none') {
-      setTasks(tasks);
-      console.log(status);
-    } 
-    else {
+      console.log('Resetting tasks to initial state');
+      setTasks(initialTasks);
+    } else {
+      console.log('Filtering tasks by status:', status);
       setTasks(tasks.filter((task) => task.status === status));
     }
   };

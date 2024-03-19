@@ -4,14 +4,7 @@ import { TaskForm } from "./TaskForm/TaskForm";
 
 
 
-export const TaskTable = (props) => {
-  const tasks = props.tasks
-  const deleteTask = props.deleteTask
-  const updateTask = props.updateTask
-
-  const submitDelete = (task) =>{
-    deleteTask(task.id)
-  }
+export const TaskTable = ({tasks, deleteTask, updateTask}) => {
   
   return (
     <Table responsive bordered hover>
@@ -41,6 +34,7 @@ export const TaskTable = (props) => {
               <td>
                 <TaskForm submitTask={updateTask} defaultTask={task} label={"Update"} />
                 <button onClick={() => deleteTask(task.id)}>Delete</button>
+                {console.log(tasks)}
                 {/* <button onClick={submitDelete(task)}>Delete</button> */}
 
               </td>
