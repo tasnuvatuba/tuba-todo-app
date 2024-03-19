@@ -28,6 +28,25 @@
   color: #61dafb;
 }
 
+/* For Pen icon */
+.pen:hover {
+  color: blue; /* Change color as desired */
+}
+
+/* For PlusCircle icon */
+.plus-circle:hover {
+  color: green; /* Change color as desired */
+}
+
+/* For Trash icon */
+.trash:hover {
+  color: red; /* Change color as desired */
+}
+
+.badge-container {
+  cursor: pointer;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -5,6 +5,8 @@ import { Select } from "./Select";
 import { uid } from "uid";
 import { FormModal } from "./FormModal";
 import Form from 'react-bootstrap/Form';
+import { Pen } from "react-bootstrap-icons";
+import {PlusCircle} from 'react-bootstrap-icons'
 
 
 export const TaskForm = ({submitTask, defaultTask, label}) => {
@@ -12,9 +14,18 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
   const [task, setTask] = useState({});
   const [resetCounter, setResetCounter] = useState(0)
   const [showModal, setShowModal] = useState(false);
+  const [showUpdateIcon, setShowUpdateIcon] = useState(label === 'Update');
 
 
-  useEffect(() => reset(), []) //for everytime when the page is refreshed
+  useEffect(() => {
+    setShowUpdateIcon(label === 'Update');
+  }, [label]);
+
+
+  useEffect(() => {
+    reset();
+  }, [defaultTask]);
+
 
   const onChangeHandler = (e) => {
     switch (e.target.name) {
@@ -75,7 +86,10 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
 
   return (
     <div>
-      <Button variant="outline-secondary" size = 'sm' onClick={() => setShowModal(true)}>{label}</Button>{' '}
+      {showUpdateIcon ? 
+      (<Pen className = "pen" style={{ fontSize: '1.5em' }} onClick={() => setShowModal(true)}>{label}</Pen>) :
+      (<PlusCircle className="plus-circle" style={{ fontSize: '3em' }} onClick={() => setShowModal(true)} >{label} </PlusCircle>)}
+      
       <FormModal title={label} showModal={showModal} onClose={() => setShowModal(false)} submit={submit} reset={clear}>
       <Form>
           <Input

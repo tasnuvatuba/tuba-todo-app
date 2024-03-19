@@ -1,27 +1,29 @@
 import React from 'react'
-import Form from 'react-bootstrap/Form';
-
+import Badge from 'react-bootstrap/Badge';
+import Stack from 'react-bootstrap/Stack';
 
 export const TaskFilter = ({filterTasks}) => {
-    //const [selectedStatus, setSelectedStatus] = useState('');
-
-    const handleStatusChange = (e) => {
-        const status = e.target.value;
-        console.log(status)
-        filterTasks(status);
-
-    };
-
     return (
-        <Form.Group controlId="taskFilter">
-            <Form.Label>Filter by Status:</Form.Label>
-            <Form.Select onChange={handleStatusChange}>
-            <option value="pending">Pending</option>
-            <option value="done">Done</option>
-            <option value="in progress">In Progress</option>
-            <option value="failed">Failed</option>
-            <option value="none">None</option>
-            </Form.Select>
-        </Form.Group>
-    )
+        <div className='badge-container'>
+            <Stack direction="horizontal" gap={2}>
+                <Badge pill onClick={()=>filterTasks('None')}>
+                    All
+                </Badge>
+                <Badge pill onClick={()=>filterTasks('Pending')}>
+                    Pending
+                </Badge>
+                <Badge pill onClick={()=>filterTasks('InProgress')}>
+                    In Progress
+                </Badge>
+                <Badge pill onClick={()=>filterTasks('Done')}>
+                    Done
+                </Badge>
+                <Badge pill onClick={()=>filterTasks('Failed')}>
+                    Failed
+                </Badge>
+            
+            </Stack>
+        </div>
+        
+      );
 }

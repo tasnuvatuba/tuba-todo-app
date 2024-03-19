@@ -2,13 +2,12 @@ import React from 'react'
 import Table from 'react-bootstrap/Table';
 import { TaskForm } from "./TaskForm/TaskForm";
 import Button from 'react-bootstrap/Button';
-
-
+import { Trash } from "react-bootstrap-icons";
 
 export const TaskTable = ({tasks, deleteTask, updateTask}) => {
   
   return (
-    <Table responsive bordered hover>
+    <Table responsive striped bordered hover>
       <thead>
         <tr>
           <th>Title</th>
@@ -32,12 +31,9 @@ export const TaskTable = ({tasks, deleteTask, updateTask}) => {
               <td>{task.createdAt}</td>
               <td>{task.updatedAt}</td>
               <td>{task.dueDate}</td>
-              <td>
+              <td style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <TaskForm submitTask={updateTask} defaultTask={task} label={"Update"} />
-                <Button variant="outline-danger" size = 'sm' onClick={() => deleteTask(task.id)}>Delete</Button>
-                {console.log(tasks)}
-                {/* <button onClick={submitDelete(task)}>Delete</button> */}
-
+                <Trash className = "trash" style={{ fontSize: '1.5em' }} onClick={() => deleteTask(task.id)}>Delete</Trash>
               </td>
             </tr>
           )

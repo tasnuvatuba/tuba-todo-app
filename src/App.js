@@ -14,20 +14,24 @@ function App() {
   // Load tasks from local storage or use the mockTasks if there are none
   const initialTasks = JSON.parse(localStorage.getItem('tasks')) || [];
   const [tasks, setTasks] = useState(initialTasks);
+  const [localStorageCounter, setLocalStorageCounter] = useState(0)
   
 
   // Update local storage whenever tasks change
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
-  }, [tasks]);
+  }, [localStorageCounter]);
 
 
   const addTask = (newTask) => {
-    setTasks([...tasks, newTask])
+    const localStorageTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    setTasks([...localStorageTasks, newTask]);
+    setLocalStorageCounter(localStorageCounter + 1);
   }
 
   const updateTask = (updatedTask) => {
-    const newTasks = tasks.map((x) => {
+    const localStorageTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const newTasks = localStorageTasks.map((x) => {
       if (x.id === updatedTask.id) {
         x = updatedTask;
       }
@@ -35,26 +39,33 @@ function App() {
     });
 
     setTasks(newTasks);
+    setLocalStorageCounter(localStorageCounter + 1);
   };
 
   const deleteTask = (id) => {
+    const localStorageTasks = JSON.parse(localStorage.getItem('tasks')) || [];
     setTasks(
-      tasks.filter((task) => {
+      localStorageTasks.filter((task) => {
         return task.id !== id;
       })
     );
+    setLocalStorageCounter(localStorageCounter + 1);
   };
 
   const filterTasks = (status) => {
-    console.log('Filtering tasks with status:', status);
-    if (status === 'none') {
-      console.log('Resetting tasks to initial state');
-      setTasks(initialTasks);
-    } else {
-      console.log('Filtering tasks by status:', status);
-      setTasks(tasks.filter((task) => task.status === status));
+    const localStorageTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    let filteredTasks;
+    if(status == 'None'){
+      filteredTasks = localStorageTasks;
     }
-  };
+    else{
+      filteredTasks = localStorageTasks.filter((task) => {
+        return task.status == status;
+      });
+
+    }
+    setTasks(filteredTasks)
+  }
 
 
   return (
@@ -64,9 +75,9 @@ function App() {
           <h1>To-do List</h1>
         </Col>
       </Row>
-      <Row className='p-md-5'>
-        <Col className="text-center">
-          <TaskFilter filterTasks={filterTasks} />
+      <Row>
+        <Col className='pb-md-3'>
+          <TaskFilter filterTasks = {filterTasks}/>
         </Col>
       </Row>
       <Row>
