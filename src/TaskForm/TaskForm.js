@@ -75,7 +75,7 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
 
   return (
     <div>
-      <Button variant="outline-secondary" onClick={() => setShowModal(true)}>{label}</Button>{' '}
+      <Button variant="outline-secondary" size = 'sm' onClick={() => setShowModal(true)}>{label}</Button>{' '}
       <FormModal title={label} showModal={showModal} onClose={() => setShowModal(false)} submit={submit} reset={clear}>
       <Form>
           <Input
