@@ -51,6 +51,9 @@
   white-space: nowrap;
 }
 
+.invalid-field {
+  border: 2px solid red; /* Add red border */
+}
 
 @keyframes App-logo-spin {
   from {

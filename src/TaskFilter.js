@@ -4,12 +4,12 @@ import Button from "react-bootstrap/Button";
 import Form from 'react-bootstrap/Form';
 import { TaskForm } from "./TaskForm/TaskForm";
 
-export const TaskFilter = ({filterTasks, addTask}) => {
+export const TaskFilter = ({filterTasks, addTask, onSearchTermChangeHandler}) => {
     return (
         <div>
             <Stack direction="horizontal" gap={2}>
                 <TaskForm submitTask={addTask} label="Add Task" />
-                <Form.Control type="text" placeholder="Search by title..."/>
+                <Form.Control type="text" placeholder="Search by title..." onChange={onSearchTermChangeHandler}/>
                 <Button variant="outline-dark" onClick={()=>filterTasks('None')}>
                     All
                 </Button>

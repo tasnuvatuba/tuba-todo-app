@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import { TaskForm } from "./TaskForm/TaskForm";
 import { Trash } from "react-bootstrap-icons";
 import { ArrowUp, ArrowDown } from "react-bootstrap-icons";
+import Stack from 'react-bootstrap/Stack';
 
 export const TaskTable = ({tasks, deleteTask, updateTask, isPriorityArrowAscending, sortByPriority, isCreatedAscending, isUpdatedAscending, isDueDateAscending, sortBydate}) => {
   
@@ -54,10 +55,17 @@ export const TaskTable = ({tasks, deleteTask, updateTask, isPriorityArrowAscendi
               <td>{task.createdAt}</td>
               <td>{task.updatedAt}</td>
               <td>{task.dueDate}</td>
-              <td style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <td>
+                <Stack direction="horizontal" gap={2}>
+                  <TaskForm submitTask={updateTask} defaultTask={task} label={"Update"} />
+                  <Trash className = "trash" style={{ fontSize: '1.5em' }} onClick={() => deleteTask(task.id)}>Delete</Trash>
+                </Stack>
+                
+              </td>
+              {/* <td style={{ display: 'flex', justifyContent: 'space-between', verticalAlign: 'middle' }} >
                 <TaskForm submitTask={updateTask} defaultTask={task} label={"Update"} />
                 <Trash className = "trash" style={{ fontSize: '1.5em' }} onClick={() => deleteTask(task.id)}>Delete</Trash>
-              </td>
+              </td> */}
             </tr>
           )
         })}

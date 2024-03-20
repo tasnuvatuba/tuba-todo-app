@@ -191,6 +191,17 @@ function App() {
 
   }
 
+  const onSearchTermChangeHandler = (e) => {
+    //console.log(e.target.value)
+    const allTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const searchedTasks = allTasks.filter((task) => {
+      return task.title.toLowerCase().includes(e.target.value.toLowerCase());
+    })
+    setTasks(searchedTasks)
+
+
+  }
+
 
   return (
     <Container >
@@ -201,7 +212,7 @@ function App() {
       </Row>
       <Row>
         <Col className='pb-3'>
-          <TaskFilter filterTasks = {filterTasks} addTask = {addTask}/>
+          <TaskFilter filterTasks = {filterTasks} addTask = {addTask} onSearchTermChangeHandler={onSearchTermChangeHandler}/>
         </Col>
       </Row>
       <Row>

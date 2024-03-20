@@ -28,6 +28,14 @@ export function formatDateWithTime(date) {
   return formattedDateTime;
 }
 
+export function isEmpty(text){
+  if (text.trim() === "") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 
 
 
@@ -37,6 +45,8 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
   const [resetCounter, setResetCounter] = useState(0)
   const [showModal, setShowModal] = useState(false);
   const [showUpdateIcon, setShowUpdateIcon] = useState(label === 'Update');
+  const [isTitleEmpty, setIsTitleEmpty] = useState(false)
+
 
   useEffect(() => {
     setShowUpdateIcon(label === 'Update');
@@ -91,6 +101,14 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
 
   const submit = (e) => {
     e.preventDefault()
+    if (isEmpty(task.title)) {
+      console.log("Title is required.");
+      setIsTitleEmpty(true)
+      return;
+    }
+    else {
+      setIsTitleEmpty(false)
+    }
     submitTask(task)
     reset()
     setShowModal(false)
@@ -111,14 +129,16 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
       // (<PlusSquare className="plus-circle" style={{ fontSize: '3em' }} onClick={() => setShowModal(true)} >{label} </PlusSquare>)
       <Button variant="secondary" onClick={() => setShowModal(true)} className="single-line-button">+ Add Task</Button>}
       
-      <FormModal title={label} showModal={showModal} onClose={() => setShowModal(false)} submit={submit} reset={clear}>
+      <FormModal title={label} showModal={showModal} onClose={() => setShowModal(false)} submit={submit} reset={clear} >
       <Form>
           <Input
-            label={"Title"}
+            label={"Title*"}
             fieldName="title"
             onChangeHandler={onChangeHandler}
             resetCounter={resetCounter}
             defaultValue={task.title}
+            isTitleEmpty = {isTitleEmpty}
+            
           />
           <Input
             label={"Details"}
