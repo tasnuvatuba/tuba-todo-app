@@ -56,16 +56,11 @@ export const TaskTable = ({tasks, deleteTask, updateTask, isPriorityArrowAscendi
               <td>{task.updatedAt}</td>
               <td>{task.dueDate}</td>
               <td>
-                <Stack direction="horizontal" gap={2}>
-                  <TaskForm submitTask={updateTask} defaultTask={task} label={"Update"} />
-                  <Trash className = "trash" style={{ fontSize: '1.5em' }} onClick={() => deleteTask(task.id)}>Delete</Trash>
-                </Stack>
-                
-              </td>
-              {/* <td style={{ display: 'flex', justifyContent: 'space-between', verticalAlign: 'middle' }} >
+                <div style={{ display: 'flex', justifyContent: 'space-between', verticalAlign: 'middle' }}>
                 <TaskForm submitTask={updateTask} defaultTask={task} label={"Update"} />
                 <Trash className = "trash" style={{ fontSize: '1.5em' }} onClick={() => deleteTask(task.id)}>Delete</Trash>
-              </td> */}
+                </div>  
+              </td>
             </tr>
           )
         })}

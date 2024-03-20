@@ -19,6 +19,7 @@ function App() {
   const [isCreatedAscending, setIsCreatedAscending] = useState(true)
   const [isUpdatedAscending, setIsUpdatedAscending] = useState(true)
   const [isDueDateAscending, setIsDueDateAscending] = useState(true)
+  const [searchTerm, setSearchTerm] = useState('');
 
   // Update local storage whenever tasks change
   useEffect(() => {
@@ -32,6 +33,7 @@ function App() {
   }
 
   const updateTask = (updatedTask) => {
+    updatedTask.updatedAt = formatDateWithTime(new Date())
     const localStorageTasks = JSON.parse(localStorage.getItem('tasks')) || [];
     const newTasks = localStorageTasks.map((x) => {
       if (x.id === updatedTask.id) {
@@ -39,7 +41,6 @@ function App() {
       }
       return x;
     });
-
     setTasks(newTasks);
     setLocalStorageCounter(localStorageCounter + 1);
   };
@@ -55,6 +56,7 @@ function App() {
   };
 
   const filterTasks = (status) => {
+    setSearchTerm("")
     const localStorageTasks = JSON.parse(localStorage.getItem('tasks')) || [];
     let filteredTasks;
     if(status === 'None'){
@@ -193,9 +195,10 @@ function App() {
 
   const onSearchTermChangeHandler = (e) => {
     //console.log(e.target.value)
+    setSearchTerm(e.target.value);
     const allTasks = JSON.parse(localStorage.getItem('tasks')) || [];
     const searchedTasks = allTasks.filter((task) => {
-      return task.title.toLowerCase().includes(e.target.value.toLowerCase());
+      return task.title.toLowerCase().includes(searchTerm.toLowerCase());
     })
     setTasks(searchedTasks)
 
@@ -212,7 +215,7 @@ function App() {
       </Row>
       <Row>
         <Col className='pb-3'>
-          <TaskFilter filterTasks = {filterTasks} addTask = {addTask} onSearchTermChangeHandler={onSearchTermChangeHandler}/>
+          <TaskFilter filterTasks = {filterTasks} addTask = {addTask} onSearchTermChangeHandler={onSearchTermChangeHandler} searchTerm = {searchTerm}/>
         </Col>
       </Row>
       <Row>
