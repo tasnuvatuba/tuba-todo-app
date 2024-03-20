@@ -3,8 +3,9 @@ import Table from 'react-bootstrap/Table';
 import { TaskForm } from "./TaskForm/TaskForm";
 import Button from 'react-bootstrap/Button';
 import { Trash } from "react-bootstrap-icons";
+import { ArrowUp, ArrowDown } from "react-bootstrap-icons";
 
-export const TaskTable = ({tasks, deleteTask, updateTask}) => {
+export const TaskTable = ({tasks, deleteTask, updateTask, isPriorityArrowAscending, sortByPriority}) => {
   
   return (
     <Table responsive striped bordered hover>
@@ -12,7 +13,11 @@ export const TaskTable = ({tasks, deleteTask, updateTask}) => {
         <tr>
           <th>Title</th>
           <th>Details</th>
-          <th>Priority</th>
+          <th>Priority {'  '} 
+            <span style={{ fontWeight: 'bold' }}>
+              {isPriorityArrowAscending? (<ArrowUp onClick={sortByPriority}/>) : (<ArrowDown onClick={sortByPriority}/>)}
+            </span>
+          </th>
           <th>Status</th>
           <th>Created</th>
           <th>Updated</th>

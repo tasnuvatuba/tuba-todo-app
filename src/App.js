@@ -15,6 +15,7 @@ function App() {
   const initialTasks = JSON.parse(localStorage.getItem('tasks')) || [];
   const [tasks, setTasks] = useState(initialTasks);
   const [localStorageCounter, setLocalStorageCounter] = useState(0)
+  const [isPriorityArrowAscending, setIsPriorityArrowAscending] = useState(true)
   
 
   // Update local storage whenever tasks change
@@ -67,6 +68,24 @@ function App() {
     setTasks(filteredTasks)
   }
 
+  const sortByPriority = () => {
+    if(isPriorityArrowAscending){
+      console.log("sort by priority ascending");
+      const ascendingOrderedTasks = [...tasks].sort((a, b) => parseInt(a.priority) - parseInt(b.priority));
+
+      setTasks(ascendingOrderedTasks)
+      setIsPriorityArrowAscending(false);
+    }
+    else{
+      console.log("sort by priority descending");
+      const descendingOrderedTasks = [...tasks].sort((a, b) => parseInt(b.priority) - parseInt(a.priority));
+
+      setTasks(descendingOrderedTasks)
+      setIsPriorityArrowAscending(true);
+    }
+
+  }
+
 
   return (
     <Container >
@@ -82,7 +101,7 @@ function App() {
       </Row>
       <Row>
         <Col>
-          <TaskTable tasks={tasks} deleteTask={deleteTask} updateTask={updateTask} />
+          <TaskTable tasks={tasks} deleteTask={deleteTask} updateTask={updateTask} isPriorityArrowAscending={isPriorityArrowAscending} sortByPriority={sortByPriority}/>
         </Col>
       </Row>
       <Row className='p-md-5'>
