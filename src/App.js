@@ -28,19 +28,32 @@ function App() {
 
   const addTask = (newTask) => {
     const localStorageTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    setTasks([...localStorageTasks, newTask]);
+    if(newTask.status === "Done" || newTask.status === "Failed"){
+      localStorageTasks.push(newTask);
+    }
+    else{
+      localStorageTasks.unshift(newTask);
+    }
+    setTasks(localStorageTasks);
     setLocalStorageCounter(localStorageCounter + 1);
   }
 
   const updateTask = (updatedTask) => {
     updatedTask.updatedAt = formatDateWithTime(new Date())
     const localStorageTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    const newTasks = localStorageTasks.map((x) => {
-      if (x.id === updatedTask.id) {
-        x = updatedTask;
-      }
-      return x;
-    });
+    const newTasks = localStorageTasks.filter((x) => x.id !== updatedTask.id);
+
+    console.log("new tasks")
+    console.log(newTasks)
+    console.log("updated Tasks")
+    console.log(updatedTask)
+    if(updatedTask.status === "Done" || updatedTask.status === "Failed"){
+      newTasks.push(updatedTask);
+    }
+    else{
+      newTasks.unshift(updatedTask);
+    }
+    
     setTasks(newTasks);
     setLocalStorageCounter(localStorageCounter + 1);
   };
@@ -93,13 +106,14 @@ function App() {
   function parseDateFromString(dateString) {
     const [datePart, timePart] = dateString.split(', '); // Split the string into date and time parts
     const [year, month, day] = datePart.split('-').map(Number); // Parse date components
-    const [hours, minutes, seconds] = timePart.split(':').map(Number); // Parse time components
-  
+    const [hours, minutes] = timePart.split(':').map(Number); // Parse time components
+    
     // Create a new Date object using the parsed components
-    const parsedDate = new Date(year, month - 1, day, hours, minutes, seconds);
-  
+    const parsedDate = new Date(year, month - 1, day, hours, minutes);
+    
     return parsedDate;
   }
+
 
   const sortBydate = (label) => {
     switch (label) {
