@@ -1,7 +1,6 @@
 import './App.css';
 import "bootstrap/dist/css/bootstrap.css";
 import { TaskTable } from "./TaskTable";
-import { TaskForm } from "./TaskForm/TaskForm";
 import { useState, useEffect } from "react";
 import { TaskFilter } from "./TaskFilter";
 import { formatDateWithTime } from "./TaskForm/TaskForm";
@@ -58,12 +57,12 @@ function App() {
   const filterTasks = (status) => {
     const localStorageTasks = JSON.parse(localStorage.getItem('tasks')) || [];
     let filteredTasks;
-    if(status == 'None'){
+    if(status === 'None'){
       filteredTasks = localStorageTasks;
     }
     else{
       filteredTasks = localStorageTasks.filter((task) => {
-        return task.status == status;
+        return task.status === status;
       });
 
     }

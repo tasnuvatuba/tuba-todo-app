@@ -1,7 +1,6 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table';
 import { TaskForm } from "./TaskForm/TaskForm";
-import Button from 'react-bootstrap/Button';
 import { Trash } from "react-bootstrap-icons";
 import { ArrowUp, ArrowDown } from "react-bootstrap-icons";
 
