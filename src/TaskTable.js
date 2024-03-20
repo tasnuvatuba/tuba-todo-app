@@ -14,23 +14,23 @@ export const TaskTable = ({tasks, deleteTask, updateTask, isPriorityArrowAscendi
           <th>Details</th>
           <th>Priority {'  '} 
             <span style={{ fontWeight: 'bold' }}>
-              {isPriorityArrowAscending? (<ArrowUp onClick={sortByPriority}/>) : (<ArrowDown onClick={sortByPriority}/>)}
+              {isPriorityArrowAscending? (<ArrowUp className="pen" style={{ fontSize: '1.5em' }} onClick={sortByPriority}/>) : (<ArrowDown className="pen" style={{ fontSize: '1.5em' }} onClick={sortByPriority}/>)}
             </span>
           </th>
           <th>Status</th>
           <th>Created {' '}
             <span style={{ fontWeight: 'bold' }}>
-              {isCreatedAscending? (<ArrowUp onClick={()=>sortBydate("created")}/>) : (<ArrowDown onClick={()=>sortBydate("created")}/>)}
+              {isCreatedAscending? (<ArrowUp className="pen" style={{ fontSize: '1.5em' }} onClick={()=>sortBydate("created")}/>) : (<ArrowDown className="pen" style={{ fontSize: '1.5em' }} onClick={()=>sortBydate("created")}/>)}
             </span>
           </th>
           <th>Updated {' '}
             <span style={{ fontWeight: 'bold' }}>
-              {isUpdatedAscending? (<ArrowUp onClick={()=>sortBydate("updated")}/>) : (<ArrowDown onClick={()=>sortBydate("updated")}/>)}
+              {isUpdatedAscending? (<ArrowUp className="pen" style={{ fontSize: '1.5em' }} onClick={()=>sortBydate("updated")}/>) : (<ArrowDown className="pen" style={{ fontSize: '1.5em' }} onClick={()=>sortBydate("updated")}/>)}
             </span>
           </th>
           <th>Due Date {' '}
             <span style={{ fontWeight: 'bold' }}>
-              {isDueDateAscending? (<ArrowUp onClick={()=>sortBydate("dueDate")}/>) : (<ArrowDown onClick={()=>sortBydate("dueDate")}/>)}
+              {isDueDateAscending? (<ArrowUp className="pen" style={{ fontSize: '1.5em' }} onClick={()=>sortBydate("dueDate")}/>) : (<ArrowDown className="pen" style={{ fontSize: '1.5em' }} onClick={()=>sortBydate("dueDate")}/>)}
             </span>
           </th>
           <th>Actions</th>
@@ -38,8 +38,15 @@ export const TaskTable = ({tasks, deleteTask, updateTask, isPriorityArrowAscendi
       </thead>
       <tbody>
         {tasks.map((task, i) => {
+          // Define styles based on task status
+          const rowStyle = {
+            textDecoration: task.status === 'Done' ? 'line-through' : (task.status === 'Failed' ? 'line-through' : 'none'),
+            color: task.status === 'Done' ? 'green' : (task.status === 'Failed' ? 'red' : 'inherit')
+            
+          };
+
           return (
-            <tr key={i}>
+            <tr key={i} style={rowStyle}>
               <td>{task.title}</td>
               <td>{task.desc}</td>
               <td>{task.priority}</td>

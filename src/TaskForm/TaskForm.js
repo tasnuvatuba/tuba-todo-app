@@ -7,6 +7,7 @@ import { FormDatePicker } from "./FormDatePicker";
 import Form from 'react-bootstrap/Form';
 import { Pen } from "react-bootstrap-icons";
 import {PlusSquare} from 'react-bootstrap-icons'
+import Button from "react-bootstrap/Button";
 
 export function formatDateWithTime(date) {
   // Get the date components
@@ -107,7 +108,8 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
     <div>
       {showUpdateIcon ? 
       (<Pen className = "pen" style={{ fontSize: '1.5em' }} onClick={() => setShowModal(true)}>{label}</Pen>) :
-      (<PlusSquare className="plus-circle" style={{ fontSize: '3em' }} onClick={() => setShowModal(true)} >{label} </PlusSquare>)}
+      // (<PlusSquare className="plus-circle" style={{ fontSize: '3em' }} onClick={() => setShowModal(true)} >{label} </PlusSquare>)
+      <Button variant="secondary" onClick={() => setShowModal(true)} className="single-line-button">+ Add Task</Button>}
       
       <FormModal title={label} showModal={showModal} onClose={() => setShowModal(false)} submit={submit} reset={clear}>
       <Form>
