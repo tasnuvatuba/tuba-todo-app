@@ -1,12 +1,33 @@
 import React, {useState, useEffect} from 'react'
-import Button from 'react-bootstrap/Button';
 import { Input } from "./Input";
 import { Select } from "./Select";
 import { uid } from "uid";
 import { FormModal } from "./FormModal";
+import { FormDatePicker } from "./FormDatePicker";
 import Form from 'react-bootstrap/Form';
 import { Pen } from "react-bootstrap-icons";
-import {PlusCircle} from 'react-bootstrap-icons'
+import {PlusSquare} from 'react-bootstrap-icons'
+
+export function formatDateWithTime(date) {
+  // Get the date components
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+  const day = date.getDate().toString().padStart(2, '0');
+
+  // Get the time components
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const seconds = date.getSeconds().toString().padStart(2, '0');
+
+  // Construct the formatted string
+  const dateString = `${year}-${month}-${day}`;
+  const timeString = `${hours}:${minutes}:${seconds}`;
+  const formattedDateTime = `${dateString}, ${timeString}`;
+
+  return formattedDateTime;
+}
+
+
 
 
 export const TaskForm = ({submitTask, defaultTask, label}) => {
@@ -15,7 +36,6 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
   const [resetCounter, setResetCounter] = useState(0)
   const [showModal, setShowModal] = useState(false);
   const [showUpdateIcon, setShowUpdateIcon] = useState(label === 'Update');
-
 
   useEffect(() => {
     setShowUpdateIcon(label === 'Update');
@@ -26,6 +46,7 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
     reset();
   }, [defaultTask]);
 
+  
 
   const onChangeHandler = (e) => {
     switch (e.target.name) {
@@ -42,7 +63,7 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
         setTask({ ...task, status: e.target.value })
         break
       case "dueDate":
-        setTask({ ...task, dueDate: e.target.value })
+        setTask({ ...task, dueDate: formatDateWithTime(e.target.value) })
         break
       default:
         break
@@ -51,8 +72,6 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
   }
 
   const reset = () => {
-    console.log("inside clear")
-    console.log(defaultTask)
     setTask(
       defaultTask? defaultTask :
       {
@@ -61,9 +80,9 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
         desc: "",
         priority: 3,
         status: "Pending",
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        dueDate: new Date().toISOString(),
+        createdAt: formatDateWithTime(new Date()),
+        updatedAt: formatDateWithTime(new Date()),
+        dueDate: formatDateWithTime(new Date()),
      }   
     )
     setResetCounter(resetCounter + 1)  
@@ -88,7 +107,7 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
     <div>
       {showUpdateIcon ? 
       (<Pen className = "pen" style={{ fontSize: '1.5em' }} onClick={() => setShowModal(true)}>{label}</Pen>) :
-      (<PlusCircle className="plus-circle" style={{ fontSize: '3em' }} onClick={() => setShowModal(true)} >{label} </PlusCircle>)}
+      (<PlusSquare className="plus-circle" style={{ fontSize: '3em' }} onClick={() => setShowModal(true)} >{label} </PlusSquare>)}
       
       <FormModal title={label} showModal={showModal} onClose={() => setShowModal(false)} submit={submit} reset={clear}>
       <Form>
@@ -122,13 +141,14 @@ export const TaskForm = ({submitTask, defaultTask, label}) => {
             resetCounter={resetCounter}
             defaultValue={task.status}
           />
-          <Input
-            label={"DueDate"}
+          <FormDatePicker 
+            label="Due Date" 
             fieldName="dueDate"
             onChangeHandler={onChangeHandler}
             resetCounter={resetCounter}
-            defaultValue={task.dueDate}
+            defaultValue={task.dueDate} 
           />
+          
 
         </Form>  
       </FormModal>

@@ -1,27 +1,31 @@
 import React from 'react'
-import Badge from 'react-bootstrap/Badge';
 import Stack from 'react-bootstrap/Stack';
+import Button from "react-bootstrap/Button";
+import Form from 'react-bootstrap/Form';
+import { TaskForm } from "./TaskForm/TaskForm";
 
-export const TaskFilter = ({filterTasks}) => {
+export const TaskFilter = ({filterTasks, addTask}) => {
     return (
-        <div className='badge-container'>
+        <div>
             <Stack direction="horizontal" gap={2}>
-                <Badge pill onClick={()=>filterTasks('None')}>
+                <TaskForm submitTask={addTask} label="Add Task" />
+                <Form.Control type="text" placeholder="Search by title..."/>
+                <Button variant="outline-dark" onClick={()=>filterTasks('None')}>
                     All
-                </Badge>
-                <Badge pill onClick={()=>filterTasks('Pending')}>
+                </Button>
+                <Button variant="outline-secondary" onClick={()=>filterTasks('Pending')}>
                     Pending
-                </Badge>
-                <Badge pill onClick={()=>filterTasks('InProgress')}>
-                    In Progress
-                </Badge>
-                <Badge pill onClick={()=>filterTasks('Done')}>
+                </Button>
+                <Button variant="outline-primary" onClick={()=>filterTasks('InProgress')}>
+                    InProgress
+                </Button>
+                <Button variant="outline-success" onClick={()=>filterTasks('Done')}>
                     Done
-                </Badge>
-                <Badge pill onClick={()=>filterTasks('Failed')}>
+                </Button>
+                <Button variant="outline-danger" onClick={()=>filterTasks('Failed')}>
                     Failed
-                </Badge>
-            
+                </Button>
+                
             </Stack>
         </div>
         
