@@ -224,7 +224,8 @@ function App() {
     <Container >
       <Row className='p-md-5'>
         <Col className="text-center">
-          <h1>To-do List</h1>
+          <h1>Toodle</h1>
+          <h5>Your personal task organizer</h5>
         </Col>
       </Row>
       <Row>

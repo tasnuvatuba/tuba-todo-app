@@ -38,32 +38,37 @@ export const TaskTable = ({tasks, deleteTask, updateTask, isPriorityArrowAscendi
         </tr>
       </thead>
       <tbody>
-        {tasks.map((task, i) => {
-          // Define styles based on task status
-          const rowStyle = {
-            textDecoration: task.status === 'Done' ? 'line-through' : (task.status === 'Failed' ? 'line-through' : 'none'),
-            color: task.status === 'Done' ? 'green' : (task.status === 'Failed' ? 'red' : 'inherit')
-            
-          };
+        {tasks.length === 0 ? (
+          <tr>
+            <td colSpan={8} align='center'>Add your first Task!</td>
+          </tr>
+        ) : (
+          tasks.map((task, i) => {
+            // Define styles based on task status
+            const rowStyle = {
+              textDecoration: task.status === 'Done' || task.status === 'Failed' ? 'line-through' : 'none',
+              color: task.status === 'Done' ? 'green' : task.status === 'Failed' ? 'red' : 'inherit'
+            };
 
-          return (
-            <tr key={i} style={rowStyle}>
-              <td>{task.title}</td>
-              <td>{task.desc}</td>
-              <td>{task.priority}</td>
-              <td>{task.status}</td>
-              <td>{task.createdAt}</td>
-              <td>{task.updatedAt}</td>
-              <td>{task.dueDate}</td>
-              <td>
-                <div style={{ display: 'flex', justifyContent: 'space-between', verticalAlign: 'middle' }}>
-                <TaskForm submitTask={updateTask} defaultTask={task} label={"Update"} />
-                <Trash className = "trash" style={{ fontSize: '1.5em' }} onClick={() => deleteTask(task.id)}>Delete</Trash>
-                </div>  
-              </td>
-            </tr>
-          )
-        })}
+            return (
+              <tr key={i} style={rowStyle}>
+                <td>{task.title}</td>
+                <td>{task.desc}</td>
+                <td>{task.priority}</td>
+                <td>{task.status}</td>
+                <td>{task.createdAt}</td>
+                <td>{task.updatedAt}</td>
+                <td>{task.dueDate}</td>
+                <td>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', verticalAlign: 'middle' }}>
+                    <TaskForm submitTask={updateTask} defaultTask={task} label={"Update"} />
+                    <Trash className="trash" style={{ fontSize: '1.5em' }} onClick={() => deleteTask(task.id)}>Delete</Trash>
+                  </div>
+                </td>
+              </tr>
+            );
+          })
+        )}
       </tbody>
     </Table>
   )
