@@ -215,8 +215,6 @@ function App() {
       return task.title.toLowerCase().includes(searchTerm.toLowerCase());
     })
     setTasks(searchedTasks)
-
-
   }
 
 

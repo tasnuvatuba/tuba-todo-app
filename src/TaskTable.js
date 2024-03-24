@@ -40,7 +40,7 @@ export const TaskTable = ({tasks, deleteTask, updateTask, isPriorityArrowAscendi
       <tbody>
         {tasks.length === 0 ? (
           <tr>
-            <td colSpan={8} align='center'>Add your first Task!</td>
+            <td colSpan={8} align='center'>No Task to Show!</td>
           </tr>
         ) : (
           tasks.map((task, i) => {
